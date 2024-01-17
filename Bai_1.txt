@@ -1,0 +1,80 @@
+/******************************************************************************
+
+Input
+Dòng đầu tiên là số lượng test case T(1≤n≤100).
+T dòng tiếp theo mỗi dòng là 1 số nguyên dương n (1≤n≤10^9)
+Output
+Mỗi test case in ra trên 1 dòng.
+Ví dụ cụ thể: 
+Input 
+ 2
+10
+28
+Output
+
+18
+56
+
+
+*******************************************************************************/
+#include <iostream>
+#include <math.h>
+
+using namespace std;
+
+int tinhTongUoc (long n);
+bool testSND(long x);
+
+int main()
+{
+    long n; int ts; int arr[ts];
+    cin >> ts;
+    if(ts>= 1 && ts <= 100)
+    {
+        for(int i=0; i<ts; i++)
+        {
+            cin >> arr[i];
+        }
+        for(int i=0; i<ts; i++)
+        {
+            if(testSND(arr[i]))
+            {
+                cout << tinhTongUoc(arr[i]) << " " << endl;
+            }
+            else
+            {
+                cout << "So nhap khong hop le";
+            }
+        }
+    }
+    else
+    {
+        cout << "Nhap testcase khong hop le!";
+    }
+    
+    return 0;
+}
+
+bool testSND(long x)
+{
+    if (x>=1 && x<=10e9)
+    {
+        return true;
+    }
+    else 
+    {
+        return false;    
+    }
+    
+}
+int tinhTongUoc (long x)
+{
+    long long sum = x;
+    for (int i=1; i<=(x/2); i++)
+    {
+        if(x % i == 0){
+            sum += i;
+        }
+    }
+    return sum;
+}

@@ -1,0 +1,47 @@
+#include <iostream>
+#include <stack>
+#include <string>
+using namespace std;
+
+string encodeString(string &s) {
+    stack<char> kyTu;
+    stack<int> demSoLuong;
+
+    for (int i = 0; i < s.size(); ++i) 
+    {
+    char c = s[i];
+    if (!kyTu.empty() && kyTu.top() == c) 
+    {
+
+        int Count = demSoLuong.top();
+        demSoLuong.pop();
+        demSoLuong.push(Count + 1);
+    }
+    else 
+    {
+
+        kyTu.push(c);
+        demSoLuong.push(1);
+        }
+    }
+
+    string result = "";
+
+
+    while (!kyTu.empty()) 
+    {
+    result = kyTu.top() + to_string(demSoLuong.top()) + result;
+    kyTu.pop();
+    demSoLuong.pop();
+    }
+
+    return result;
+}
+
+int main() {
+    string s;
+    getline(cin, s);
+    cout << encodeString(s);
+
+    return 0;
+}
