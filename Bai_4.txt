@@ -1,0 +1,57 @@
+#include <iostream>
+#include <queue>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+bool is_prime(int num) {
+    if (num < 2) {
+        return false;
+    }
+    for (int i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+vector<int> superPrimeNumber(int n) {
+    vector<int> primes = {2, 3, 5, 7};
+    queue<int> q;
+    for (int prime : primes) {
+        q.push(prime);
+    }
+    vector<int> super_primes;
+    while (super_primes.size() < n) {
+        int num = q.front();
+        q.pop();
+        if (num > n) {
+            break;
+        }
+        super_primes.push_back(num);
+        for (int i = 1; i <= 9; i++) {
+            int new_num = num * 10 + i;
+            if (is_prime(new_num)) {
+                q.push(new_num);
+            }
+        }
+    }
+    return super_primes;
+}
+
+int main() {
+    int n;
+    cout << "Nhập số: ";
+    cin >> n;
+    vector<int> result = superPrimeNumber(n);
+    cout << "Các số siêu nguyên tố nhỏ hơn hoặc bằng " << n << " là: [";
+    for (int i = 0; i < result.size(); i++) {
+        cout << result[i];
+        if (i != result.size() - 1) {
+            cout << ", ";
+        }
+    }
+    cout << "]" << endl;
+    return 0;
+}
